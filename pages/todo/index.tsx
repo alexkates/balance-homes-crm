@@ -2,26 +2,31 @@ import React from "react";
 import { GetStaticProps } from "next";
 import TodoItem, { TodoItemProps } from "../../components/TodoItem";
 import prisma from "../../lib/prisma";
+import CreateTodo from "../../components/CreateTodo";
 
 export const getStaticProps: GetStaticProps = async () => {
   const todos = await prisma.todo.findMany({
+    orderBy: {
+      id: "desc",
+    },
     include: {
       user: {
         select: { name: true },
       },
     },
   });
+
   return { props: { todos } };
 };
 
-type Props = {
+type ListTodoProps = {
   todos: TodoItemProps[];
 };
 
-const ListTodos: React.FC<Props> = ({ todos }: Props) => {
+const ListTodos: React.FC<ListTodoProps> = ({ todos }: ListTodoProps) => {
   return (
     <div>
-      <h1>Todos</h1>
+      <CreateTodo />
       <main>
         {todos.map((todo) => (
           <div key={todo.id}>

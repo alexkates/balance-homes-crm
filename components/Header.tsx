@@ -16,9 +16,6 @@ const Header: React.FC = () => {
       )}
       {session && (
         <div>
-          <p>
-            {session.user.name} ({session.user.email})
-          </p>
           <Link href="/todo">
             <a>Todos</a>
           </Link>
@@ -27,6 +24,7 @@ const Header: React.FC = () => {
               <a>Create</a>
             </button>
           </Link>
+          <span>{session.user.name}</span>
           <button onClick={() => signOut()}>
             <a>Log out</a>
           </button>

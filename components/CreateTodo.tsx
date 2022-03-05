@@ -20,22 +20,19 @@ const CreateTodo: React.FC = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={submitData}>
-        <h1>New Todo</h1>
-        <input
-          autoFocus
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Content"
-          type="text"
-          value={content}
-        />
-        <input disabled={!content} type="submit" value="Create" />
-        <a className="back" href="#" onClick={() => Router.push("/")}>
-          Cancel
-        </a>
-      </form>
-    </div>
+    <form onSubmit={submitData}>
+      <input
+        autoFocus
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Content"
+        type="text"
+        value={content}
+      />
+      <input disabled={!content} type="submit" value="Create" />
+      <a className="back" href="#" onClick={() => Router.push("/")}>
+        Cancel
+      </a>
+    </form>
   );
 };
 
