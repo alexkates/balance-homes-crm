@@ -24,9 +24,15 @@ export default function ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <main>
-      <Link href="/customer/create">
-        <a>Create</a>
-      </Link>
+      <div className="m-4 flex">
+        <h1 className="text-4xl px-2">Customers</h1>
+        <Link href="/customer/create">
+          <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            +
+          </a>
+        </Link>
+      </div>
+
       <CustomerList customers={customers} />
     </main>
   );

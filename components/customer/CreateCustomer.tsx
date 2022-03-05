@@ -24,7 +24,7 @@ export default function () {
       <input
         autoFocus
         onChange={(e) => setName(e.target.value)}
-        placeholder="Customer Name"
+        placeholder="Name"
         type="text"
         value={name}
       />

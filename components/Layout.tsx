@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import Header from "./Header";
+import Nav from "./sidebar/Nav";
 
 type LayoutProps = {
   children: ReactNode;
@@ -7,9 +7,9 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
-    <div>
-      <Header />
-      <div>{children}</div>
+    <div className="flex">
+      <Nav />
+      <div className="container m-8">{children}</div>
     </div>
   );
 };
