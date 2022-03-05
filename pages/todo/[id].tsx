@@ -1,7 +1,6 @@
 import React from "react";
 import { GetServerSideProps } from "next";
-import Layout from "../../components/Layout";
-import { TodoProps } from "../../components/Todo";
+import { TodoItemProps } from "../../components/TodoItem";
 import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -20,36 +19,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-const Todo: React.FC<TodoProps> = (props) => {
+const TodoItem: React.FC<TodoItemProps> = (todo) => {
   return (
-    <Layout>
-      <div>
-        <p>By {props?.user?.name || "Unknown author"}</p>
-        <p>{props.content}</p>
-      </div>
-      <style jsx>{`
-        .page {
-          background: white;
-          padding: 2rem;
-        }
-
-        .actions {
-          margin-top: 2rem;
-        }
-
-        button {
-          background: #ececec;
-          border: 0;
-          border-radius: 0.125rem;
-          padding: 1rem 2rem;
-        }
-
-        button + button {
-          margin-left: 1rem;
-        }
-      `}</style>
-    </Layout>
+    <div>
+      <p>By {todo?.user?.name || "Unknown author"}</p>
+      <p>{todo.content}</p>
+    </div>
   );
 };
 
-export default Todo;
+export default TodoItem;

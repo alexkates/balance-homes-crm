@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "next/router";
 
-export type TodoProps = {
+export type TodoItemProps = {
   id: number;
   user: {
     name: string;
@@ -10,7 +10,7 @@ export type TodoProps = {
   content: string;
 };
 
-const Todo: React.FC<{ todo: TodoProps }> = ({ todo }) => {
+const TodoItem: React.FC<{ todo: TodoItemProps }> = ({ todo }) => {
   const userName = todo.user ? todo.user.name : "Unknown user";
   return (
     <div onClick={() => Router.push("/todo/[id]", `/todo/${todo.id}`)}>
@@ -26,4 +26,4 @@ const Todo: React.FC<{ todo: TodoProps }> = ({ todo }) => {
   );
 };
 
-export default Todo;
+export default TodoItem;
