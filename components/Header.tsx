@@ -3,7 +3,11 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return null;
+  }
 
   return (
     <nav>
@@ -16,13 +20,8 @@ const Header: React.FC = () => {
       )}
       {session && (
         <div>
-          <Link href="/todo">
-            <a>Todos</a>
-          </Link>
-          <Link href="/todo/create">
-            <button>
-              <a>Create</a>
-            </button>
+          <Link href="/customer">
+            <a>Customers</a>
           </Link>
           <span>{session.user.name}</span>
           <button onClick={() => signOut()}>

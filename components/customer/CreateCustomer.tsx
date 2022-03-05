@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import Router from "next/router";
 
-const CreateTodo: React.FC = () => {
-  const [content, setContent] = useState("");
+export default function () {
+  const [name, setName] = useState("");
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { content };
-      await fetch("/api/todo", {
+      const body = { name };
+      await fetch("/api/customer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      await Router.push("/todo");
+      await Router.push("/customer");
     } catch (error) {
       console.error(error);
     }
@@ -23,17 +23,15 @@ const CreateTodo: React.FC = () => {
     <form onSubmit={submitData}>
       <input
         autoFocus
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Content"
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Customer Name"
         type="text"
-        value={content}
+        value={name}
       />
-      <input disabled={!content} type="submit" value="Create" />
-      <a className="back" href="#" onClick={() => Router.push("/")}>
+      <input disabled={!name} type="submit" value="Create" />
+      <a className="back" href="#" onClick={() => Router.push("/customer")}>
         Cancel
       </a>
     </form>
   );
-};
-
-export default CreateTodo;
+}

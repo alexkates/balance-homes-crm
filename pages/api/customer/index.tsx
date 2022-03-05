@@ -1,14 +1,14 @@
 import { getSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
 
-// POST /api/todo
+// POST /api/customer
 export default async function handle(req, res) {
-  const { content } = req.body;
+  const { name } = req.body;
 
   const session = await getSession({ req });
-  const result = await prisma.todo.create({
+  const result = await prisma.customer.create({
     data: {
-      content: content,
+      name,
       user: { connect: { email: session?.user?.email } },
     },
   });
