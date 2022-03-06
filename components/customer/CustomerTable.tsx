@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { Column, useTable } from "react-table";
 
@@ -14,7 +15,17 @@ export default function ({ customers }: CustomerListProps) {
   const data = React.useMemo(() => customers, []);
   const columns: Array<Column> = React.useMemo(
     () => [
-      { header: "Id", accessor: "id" },
+      {
+        header: "Id",
+        accessor: "id",
+        Cell: ({ value }) => (
+          <Link href={`/customer/${value}`}>
+            <a className="hover:underline text-blue-700 hover:text-blue-500">
+              {value}
+            </a>
+          </Link>
+        ),
+      },
       { header: "First Name", accessor: "firstname" },
       { header: "Last Name", accessor: "lastname" },
       { header: "Address", accessor: "address" },

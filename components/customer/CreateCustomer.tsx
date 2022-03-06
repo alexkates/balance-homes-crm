@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import Router from "next/router";
 
-export default function () {
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-  });
+export type CustomerProps = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  id?: number;
+};
+
+export type CreateCustomerProps = {
+  customer?: CustomerProps;
+};
+
+export default function ({ customer }: CreateCustomerProps) {
+  const [formData, setFormData] = useState(customer);
+  console.log(formData);
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -47,6 +55,7 @@ export default function () {
             placeholder="Jane"
             onChange={handleChange}
             name="firstname"
+            value={formData?.firstname}
           />
         </div>
         <div className="w-full md:w-1/2 px-3">
@@ -59,6 +68,7 @@ export default function () {
             placeholder="Doe"
             onChange={handleChange}
             name="lastname"
+            value={formData?.lastname}
           />
         </div>
       </div>
@@ -73,6 +83,7 @@ export default function () {
             placeholder="123 Pleasant St"
             onChange={handleChange}
             name="address"
+            value={formData?.address}
           />
         </div>
       </div>
@@ -87,6 +98,7 @@ export default function () {
             placeholder="janedoe@gmail.com"
             onChange={handleChange}
             name="email"
+            value={formData?.email}
           />
         </div>
         <div className="w-full md:w-1/2 px-3">
@@ -99,6 +111,7 @@ export default function () {
             placeholder="610-555-1234"
             onChange={handleChange}
             name="phone"
+            value={formData?.phone}
           />
         </div>
       </div>
@@ -113,6 +126,7 @@ export default function () {
             placeholder="Philadelphia"
             onChange={handleChange}
             name="city"
+            value={formData?.city}
           />
         </div>
         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -125,6 +139,7 @@ export default function () {
             placeholder="PA"
             onChange={handleChange}
             name="state"
+            value={formData?.state}
           />
         </div>
         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -137,6 +152,7 @@ export default function () {
             placeholder="90210"
             onChange={handleChange}
             name="zip"
+            value={formData?.zip}
           />
         </div>
       </div>
