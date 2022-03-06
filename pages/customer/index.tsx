@@ -3,6 +3,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import prisma from "../../lib/prisma";
 import CustomerList from "../../components/customer/CustomerList";
 import Link from "next/link";
+import AnchorButton from "../../components/AnchorButton";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const customers = await prisma.customer.findMany({
@@ -24,13 +25,9 @@ export default function ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <main>
-      <div className="m-4 flex">
-        <h1 className="text-4xl px-2">Customers</h1>
-        <Link href="/customer/create">
-          <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            +
-          </a>
-        </Link>
+      <div className="flex">
+        <h1 className="text-2xl mr-4">Customers</h1>
+        <AnchorButton href="/customer/create">Create</AnchorButton>
       </div>
 
       <CustomerList customers={customers} />
