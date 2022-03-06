@@ -9,11 +9,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     orderBy: {
       id: "desc",
     },
-    include: {
-      user: {
-        select: { name: true },
-      },
-    },
   });
 
   return { props: { customers } };

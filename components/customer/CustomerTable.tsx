@@ -15,7 +15,14 @@ export default function ({ customers }: CustomerListProps) {
   const columns: Array<Column> = React.useMemo(
     () => [
       { header: "Id", accessor: "id" },
-      { header: "Name", accessor: "name" },
+      { header: "First Name", accessor: "firstname" },
+      { header: "Last Name", accessor: "lastname" },
+      { header: "Address", accessor: "address" },
+      { header: "Email", accessor: "email" },
+      { header: "Phone", accessor: "phone" },
+      { header: "City", accessor: "city" },
+      { header: "State", accessor: "state" },
+      { header: "Zip", accessor: "zip" },
     ],
     []
   );
@@ -29,7 +36,9 @@ export default function ({ customers }: CustomerListProps) {
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("header")}</th>
+              <th className="px-4 py-2" {...column.getHeaderProps()}>
+                {column.render("header")}
+              </th>
             ))}
           </tr>
         ))}

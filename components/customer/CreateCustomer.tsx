@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import Router from "next/router";
 
 export default function () {
-  const [name, setName] = useState("");
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { name };
       await fetch("/api/customer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify(formData),
       });
       await Router.push("/customer");
     } catch (error) {
@@ -19,19 +27,127 @@ export default function () {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
-    <form onSubmit={submitData}>
-      <input
-        autoFocus
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-        type="text"
-        value={name}
-      />
-      <input disabled={!name} type="submit" value="Create" />
-      <a className="back" href="#" onClick={() => Router.push("/customer")}>
-        Cancel
-      </a>
+    <form className="w-full max-w-lg" onSubmit={submitData}>
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            First Name
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="Jane"
+            onChange={handleChange}
+            name="firstname"
+          />
+        </div>
+        <div className="w-full md:w-1/2 px-3">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Last Name
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="Doe"
+            onChange={handleChange}
+            name="lastname"
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Address
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="123 Pleasant St"
+            onChange={handleChange}
+            name="address"
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Email
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="email"
+            placeholder="janedoe@gmail.com"
+            onChange={handleChange}
+            name="email"
+          />
+        </div>
+        <div className="w-full md:w-1/2 px-3">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Phone
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="phone"
+            placeholder="610-555-1234"
+            onChange={handleChange}
+            name="phone"
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            City
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="Philadelphia"
+            onChange={handleChange}
+            name="city"
+          />
+        </div>
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            State
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="PA"
+            onChange={handleChange}
+            name="state"
+          />
+        </div>
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Zip
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            type="text"
+            placeholder="90210"
+            onChange={handleChange}
+            name="zip"
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full px-3 mb-6 md:mb-0">
+          <input
+            className="float-right inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            type="submit"
+          />
+        </div>
+      </div>
     </form>
   );
 }
