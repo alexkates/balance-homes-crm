@@ -1,9 +1,8 @@
 import React from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import prisma from "../../lib/prisma";
-import CustomerList from "../../components/customer/CustomerList";
-import Link from "next/link";
 import AnchorButton from "../../components/AnchorButton";
+import CustomerTable from "../../components/customer/CustomerTable";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const customers = await prisma.customer.findMany({
@@ -30,7 +29,9 @@ export default function ({
         <AnchorButton href="/customer/create">Create</AnchorButton>
       </div>
 
-      <CustomerList customers={customers} />
+      <div className="mt-4">
+        <CustomerTable customers={customers} />
+      </div>
     </main>
   );
 }
