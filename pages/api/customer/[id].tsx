@@ -13,21 +13,25 @@ export default async function handler(
 
   switch (method) {
     case "PATCH":
-      const customerToUpdate = await prisma.customer.findFirst({
+      const updatedCustomer = await prisma.customer.update({
         where: {
           id: parseInt(id as string),
         },
-      });
-
-      if (!customerToUpdate) {
-        res.status(404).send("Customer not found");
-      }
-
-      const updatedCustomer = await prisma.customer.update({
-        where: {
-          id: customerToUpdate.id,
+        data: {
+          firstname: body.firstname,
+          lastname: body.lastname,
+          email: body.email,
+          phone: body.phone,
+          address: body.address,
+          city: body.city,
+          state: body.state,
+          zip: body.zip,
+          status: {
+            connect: {
+              id: body.statusId,
+            },
+          },
         },
-        data: body,
       });
 
       res.status(200).json({ id: updatedCustomer.id });

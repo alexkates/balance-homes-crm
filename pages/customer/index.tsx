@@ -6,12 +6,14 @@ import CustomerTable from "../../components/customer/CustomerTable";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const customers = await prisma.customer.findMany();
+  const statuses = await prisma.status.findMany();
 
-  return { props: { customers } };
+  return { props: { customers, statuses } };
 };
 
 export default function ({
   customers,
+  statuses,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <main>
@@ -21,7 +23,7 @@ export default function ({
       </div>
 
       <div className="mt-4">
-        <CustomerTable customers={customers} />
+        <CustomerTable customers={customers} statuses={statuses} />
       </div>
     </main>
   );

@@ -1,9 +1,15 @@
-import { Customer } from ".prisma/client";
+import { Customer, Status } from ".prisma/client";
 import Link from "next/link";
 import React from "react";
 import { Column, useTable } from "react-table";
 
-export default function ({ customers }: { customers: Customer[] }) {
+export default function ({
+  customers,
+  statuses,
+}: {
+  customers: Customer[];
+  statuses: Status[];
+}) {
   const data = React.useMemo(() => customers, []);
   const columns: Array<Column> = React.useMemo(
     () => [
@@ -17,6 +23,12 @@ export default function ({ customers }: { customers: Customer[] }) {
             </a>
           </Link>
         ),
+      },
+      {
+        header: "Status",
+        accessor: "statusId",
+        Cell: ({ value }) =>
+          statuses.find((status) => status.id === value)?.name || "",
       },
       { header: "First Name", accessor: "firstname" },
       { header: "Last Name", accessor: "lastname" },

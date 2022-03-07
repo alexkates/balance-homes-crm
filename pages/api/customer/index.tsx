@@ -10,7 +10,21 @@ export default async function handler(
   switch (method) {
     case "POST":
       const customer = await prisma.customer.create({
-        data: body,
+        data: {
+          firstname: body.firstname,
+          lastname: body.lastname,
+          email: body.email,
+          phone: body.phone,
+          address: body.address,
+          city: body.city,
+          state: body.state,
+          zip: body.zip,
+          status: {
+            connect: {
+              id: body.statusId,
+            },
+          },
+        },
       });
       res.status(200).json({ id: customer.id });
       break;

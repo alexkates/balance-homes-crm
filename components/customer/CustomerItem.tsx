@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import { Customer } from "@prisma/client";
+import { Customer, Status } from "@prisma/client";
 
-export default function ({ customer }: { customer?: Customer }) {
+export default function ({
+  customer,
+  statuses,
+}: {
+  customer?: Customer;
+  statuses: Status[];
+}) {
   const [formData, setFormData] = useState(customer);
 
   const submitData = async (e: React.SyntheticEvent) => {
@@ -23,7 +29,9 @@ export default function ({ customer }: { customer?: Customer }) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -61,21 +69,6 @@ export default function ({ customer }: { customer?: Customer }) {
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-6">
-        <div className="w-full px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-            Address
-          </label>
-          <input
-            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            type="text"
-            placeholder="123 Pleasant St"
-            onChange={handleChange}
-            name="address"
-            value={formData?.address}
-          />
-        </div>
-      </div>
-      <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Email
@@ -103,6 +96,22 @@ export default function ({ customer }: { customer?: Customer }) {
           />
         </div>
       </div>
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Address
+          </label>
+          <input
+            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            type="text"
+            placeholder="123 Pleasant St"
+            onChange={handleChange}
+            name="address"
+            value={formData?.address}
+          />
+        </div>
+      </div>
+
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -142,6 +151,25 @@ export default function ({ customer }: { customer?: Customer }) {
             name="zip"
             value={formData?.zip}
           />
+        </div>
+      </div>
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Status
+          </label>
+          <select
+            className=" block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            onChange={handleChange}
+            value={formData?.statusId}
+            name="statusId"
+          >
+            {statuses.map((status) => (
+              <option key={status.id} value={status.id}>
+                {status.name}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
       <div className="flex flex-wrap -mx-3 mb-6">
