@@ -21,8 +21,19 @@ model Customer {
   state     String?
   zip       String?
   userId    Int?
+  statusId  Int?
+  status    Status? @relation(fields: [statusId], references: [id], onDelete: Cascade)
 
+  User User? @relation(fields: [userId], references: [id])
   @@map("customers")
+}
+
+model Status {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  Customer Customer[]
+  @@map("statuses")
 }
 
 model Account {
@@ -68,6 +79,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  Customer Customer[]
   @@map(name: "users")
 }
 
