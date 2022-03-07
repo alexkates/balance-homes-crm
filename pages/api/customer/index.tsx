@@ -1,13 +1,21 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 
-// POST /api/customer
-export default async function handle(req, res) {
-  const result = await prisma.customer.upsert({
-    where: {
-      id: req.body.id || -1,
-    },
-    update: req.body,
-    create: req.body,
-  });
-  res.json(result);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { body, method } = req;
+
+  switch (method) {
+    case "POST":
+      const customer = await prisma.customer.create({
+        data: body,
+      });
+      res.status(200).json({ id: customer.id });
+      break;
+
+    default:
+      res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 }

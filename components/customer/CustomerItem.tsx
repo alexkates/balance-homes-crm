@@ -1,31 +1,19 @@
 import React, { useState } from "react";
 import Router from "next/router";
+import { Customer } from "@prisma/client";
 
-export type CustomerProps = {
-  firstname: string;
-  lastname: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  id?: number;
-};
-
-export type CreateCustomerProps = {
-  customer?: CustomerProps;
-};
-
-export default function ({ customer }: CreateCustomerProps) {
+export default function ({ customer }: { customer?: Customer }) {
   const [formData, setFormData] = useState(customer);
-  console.log(formData);
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    const url = customer?.id ? `/api/customer/${customer.id}` : "/api/customer";
+    const method = customer?.id ? "PATCH" : "POST";
+
     try {
-      await fetch("/api/customer", {
-        method: "POST",
+      await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });

@@ -1,10 +1,10 @@
 import React from "react";
-import CreateCustomer from "../../components/customer/CreateCustomer";
+import CustomerItem from "../../components/customer/CustomerItem";
 
 export default function () {
   return (
     <main>
-      <CreateCustomer />
+      <CustomerItem />
     </main>
   );
 }

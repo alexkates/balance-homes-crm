@@ -1,17 +1,9 @@
+import { Customer } from ".prisma/client";
 import Link from "next/link";
 import React from "react";
 import { Column, useTable } from "react-table";
 
-export type CustomerItemProps = {
-  id: string;
-  name: string;
-};
-
-export type CustomerListProps = {
-  customers: CustomerItemProps[];
-};
-
-export default function ({ customers }: CustomerListProps) {
+export default function ({ customers }: { customers: Customer[] }) {
   const data = React.useMemo(() => customers, []);
   const columns: Array<Column> = React.useMemo(
     () => [

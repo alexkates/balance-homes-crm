@@ -5,11 +5,7 @@ import AnchorButton from "../../components/AnchorButton";
 import CustomerTable from "../../components/customer/CustomerTable";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const customers = await prisma.customer.findMany({
-    orderBy: {
-      id: "desc",
-    },
-  });
+  const customers = await prisma.customer.findMany();
 
   return { props: { customers } };
 };

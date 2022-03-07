@@ -1,6 +1,6 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import React from "react";
-import CreateCustomer from "../../components/customer/CreateCustomer";
+import CustomerItem from "../../components/customer/CustomerItem";
 import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -18,7 +18,7 @@ export default function ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <main>
-      <CreateCustomer customer={customer} />
+      <CustomerItem customer={customer} />
     </main>
   );
 }
