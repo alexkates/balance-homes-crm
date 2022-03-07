@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,6 +9,7 @@ export default async function handler(
 
   switch (method) {
     case "POST":
+      const prisma = new PrismaClient();
       const customer = await prisma.customer.create({
         data: {
           firstname: body.firstname,

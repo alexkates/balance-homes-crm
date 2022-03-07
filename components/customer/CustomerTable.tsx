@@ -1,4 +1,4 @@
-import { Customer, Status } from ".prisma/client";
+import { Customer, Status } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import { Column, useTable } from "react-table";

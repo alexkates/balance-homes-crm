@@ -1,9 +1,10 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import React from "react";
 import CustomerItem from "../../components/customer/CustomerItem";
-import prisma from "../../lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const prisma = new PrismaClient();
   const statuses = await prisma.status.findMany();
   const customer = await prisma.customer.findFirst({
     where: {

@@ -1,6 +1,7 @@
-import prisma from "../lib/prisma";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-async function main() {
+async function main(prisma: PrismaClient) {
   const applicationSubmittedStatus = await prisma.status.findMany();
 
   const statusesToCreate = [
@@ -24,7 +25,7 @@ async function main() {
   }
 }
 
-main()
+main(prisma)
   .catch((e) => {
     console.error(e);
     process.exit(1);

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,6 +13,7 @@ export default async function handler(
 
   switch (method) {
     case "PATCH":
+      const prisma = new PrismaClient();
       const updatedCustomer = await prisma.customer.update({
         where: {
           id: parseInt(id as string),

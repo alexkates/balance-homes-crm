@@ -1,9 +1,10 @@
-import { Customer } from ".prisma/client";
+import { Customer } from "@prisma/client";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import CustomerItem from "../../components/customer/CustomerItem";
-import prisma from "../../lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const prisma = new PrismaClient();
   const statuses = await prisma.status.findMany();
 
   return { props: { statuses } };
