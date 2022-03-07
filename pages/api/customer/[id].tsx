@@ -16,7 +16,7 @@ export default async function handler(
       const prisma = new PrismaClient();
       const updatedCustomer = await prisma.customer.update({
         where: {
-          id: parseInt(id as string),
+          id: Number(id),
         },
         data: {
           firstname: body.firstname,
@@ -29,7 +29,7 @@ export default async function handler(
           zip: body.zip,
           status: {
             connect: {
-              id: body.statusId,
+              id: Number(body.statusId),
             },
           },
         },

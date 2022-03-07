@@ -15,10 +15,7 @@ export default function ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <main>
-      <CustomerItem
-        statuses={statuses}
-        customer={{ statusId: 1 } as Customer}
-      />
+      <CustomerItem statuses={statuses} />
     </main>
   );
 }

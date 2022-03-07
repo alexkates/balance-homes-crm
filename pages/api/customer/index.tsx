@@ -22,7 +22,7 @@ export default async function handler(
           zip: body.zip,
           status: {
             connect: {
-              id: body.statusId,
+              id: Number(body.statusId),
             },
           },
         },
